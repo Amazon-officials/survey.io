@@ -592,6 +592,35 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Validation Error Styles */
+        .error-field {
+            border-color: #c51130 !important;
+            background-color: #fff5f5 !important;
+        }
+        
+        .error-group {
+            border-left-color: #c51130 !important;
+            background-color: #fff5f5 !important;
+        }
+        
+        .error-message {
+            color: #c51130;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .checkbox-group.error, .radio-group.error {
+            border: 1px solid #c51130;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: #fff5f5;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -665,7 +694,6 @@
             </div>
         </div>
         
-               
         <div class="progress-bar">
             <div class="progress" id="surveyProgress"></div>
         </div>
@@ -683,16 +711,19 @@
                 <div class="form-group">
                     <label for="name"><span class="question-number">1</span> Full Name <span class="required">*</span></label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    <div class="error-message" id="name-error">Please enter your full name</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="email"><span class="question-number">2</span> Email Address <span class="required">*</span></label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="phone"><span class="question-number">3</span> Phone Number <span class="required">*</span></label>
                     <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    <div class="error-message" id="phone-error">Please enter your phone number</div>
                 </div>
                 
                 <div class="form-group">
@@ -706,6 +737,7 @@
                         <option value="51-65">51-65 years</option>
                         <option value="over65">Over 65</option>
                     </select>
+                    <div class="error-message" id="age-error">Please select your age group</div>
                 </div>
             </div>
             
@@ -719,7 +751,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">5</span> How satisfied are you with your overall experience on Amazon? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="overall_experience_group">
                         <div class="rating-item">
                             <input type="radio" id="overall_1" name="overall_experience" value="1" required>
                             <label for="overall_1">1</label>
@@ -745,11 +777,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="overall_experience-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">6</span> How easy was it to find what you were looking for? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="find_ease_group">
                         <div class="radio-item">
                             <input type="radio" id="find_easy" name="find_ease" value="very_easy" required>
                             <label for="find_easy">Very Easy</label>
@@ -767,11 +800,12 @@
                             <label for="find_very_difficult">Very Difficult</label>
                         </div>
                     </div>
+                    <div class="error-message" id="find_ease-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">7</span> How would you rate the speed of the website/app? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="website_speed_group">
                         <div class="rating-item">
                             <input type="radio" id="speed_1" name="website_speed" value="1" required>
                             <label for="speed_1">1</label>
@@ -797,11 +831,12 @@
                         <span>Very Slow</span>
                         <span>Very Fast</span>
                     </div>
+                    <div class="error-message" id="website_speed-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">8</span> Did you encounter any problems while browsing? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="browsing_problems_group">
                         <div class="radio-item">
                             <input type="radio" id="problems_yes" name="browsing_problems" value="yes" required>
                             <label for="problems_yes">Yes</label>
@@ -812,11 +847,12 @@
                         </div>
                     </div>
                     <div class="optional-note">If yes, please describe in the open-ended section at the end</div>
+                    <div class="error-message" id="browsing_problems-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">9</span> How likely are you to shop on Amazon again? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="shop_again_group">
                         <div class="rating-item">
                             <input type="radio" id="again_1" name="shop_again" value="1" required>
                             <label for="again_1">1</label>
@@ -842,6 +878,7 @@
                         <span>Very Unlikely</span>
                         <span>Very Likely</span>
                     </div>
+                    <div class="error-message" id="shop_again-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -855,7 +892,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">10</span> How relevant were the search results? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="search_relevance_group">
                         <div class="rating-item">
                             <input type="radio" id="relevant_1" name="search_relevance" value="1" required>
                             <label for="relevant_1">1</label>
@@ -881,11 +918,12 @@
                         <span>Not Relevant</span>
                         <span>Very Relevant</span>
                     </div>
+                    <div class="error-message" id="search_relevance-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">11</span> Was product information clear and detailed? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="product_info_group">
                         <div class="radio-item">
                             <input type="radio" id="info_yes" name="product_info" value="yes" required>
                             <label for="info_yes">Yes, very clear</label>
@@ -899,11 +937,12 @@
                             <label for="info_no">No, unclear</label>
                         </div>
                     </div>
+                    <div class="error-message" id="product_info-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">12</span> Did you use filters or sorting options? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="use_filters_group">
                         <div class="radio-item">
                             <input type="radio" id="filters_yes" name="use_filters" value="yes" required>
                             <label for="filters_yes">Yes</label>
@@ -917,11 +956,12 @@
                             <label for="filters_sometimes">Sometimes</label>
                         </div>
                     </div>
+                    <div class="error-message" id="use_filters-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">13</span> How satisfied are you with the variety of products available? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="product_variety_group">
                         <div class="rating-item">
                             <input type="radio" id="variety_1" name="product_variety" value="1" required>
                             <label for="variety_1">1</label>
@@ -947,6 +987,7 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="product_variety-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -960,7 +1001,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">14</span> How easy was the checkout process? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="checkout_ease_group">
                         <div class="rating-item">
                             <input type="radio" id="checkout_1" name="checkout_ease" value="1" required>
                             <label for="checkout_1">1</label>
@@ -986,11 +1027,12 @@
                         <span>Very Difficult</span>
                         <span>Very Easy</span>
                     </div>
+                    <div class="error-message" id="checkout_ease-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">15</span> Did you find the pricing and fees clear? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="pricing_clarity_group">
                         <div class="radio-item">
                             <input type="radio" id="pricing_yes" name="pricing_clarity" value="yes" required>
                             <label for="pricing_yes">Yes, very clear</label>
@@ -1004,11 +1046,12 @@
                             <label for="pricing_no">No, unclear</label>
                         </div>
                     </div>
+                    <div class="error-message" id="pricing_clarity-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">16</span> How satisfied are you with available payment options? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="payment_options_satisfaction_group">
                         <div class="rating-item">
                             <input type="radio" id="payment_options_1" name="payment_options_satisfaction" value="1" required>
                             <label for="payment_options_1">1</label>
@@ -1034,11 +1077,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="payment_options_satisfaction-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">17</span> Did you use any coupons or promotions? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="use_coupons_group">
                         <div class="radio-item">
                             <input type="radio" id="coupons_yes" name="use_coupons" value="yes" required>
                             <label for="coupons_yes">Yes</label>
@@ -1048,11 +1092,12 @@
                             <label for="coupons_no">No</label>
                         </div>
                     </div>
+                    <div class="error-message" id="use_coupons-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">18</span> Did you experience any technical issues during checkout? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="checkout_issues_group">
                         <div class="radio-item">
                             <input type="radio" id="tech_issues_yes" name="checkout_issues" value="yes" required>
                             <label for="tech_issues_yes">Yes</label>
@@ -1062,6 +1107,7 @@
                             <label for="tech_issues_no">No</label>
                         </div>
                     </div>
+                    <div class="error-message" id="checkout_issues-error">Please select an option</div>
                 </div>
             </div>
             
@@ -1076,7 +1122,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">19</span> Which payment format do you always use? <span class="required">*</span></label>
-                    <div class="checkbox-group">
+                    <div class="checkbox-group" id="payment_methods_group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="payment_credit" name="payment_methods" value="credit_card">
                             <label for="payment_credit">Credit Card</label>
@@ -1110,11 +1156,12 @@
                             <label for="payment_other">Other</label>
                         </div>
                     </div>
+                    <div class="error-message" id="payment_methods-error">Please select at least one payment method</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">20</span> How satisfied are you with available payment methods? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="payment_satisfaction_group">
                         <div class="rating-item">
                             <input type="radio" id="payment_satisfaction_1" name="payment_satisfaction" value="1" required>
                             <label for="payment_satisfaction_1">1</label>
@@ -1140,11 +1187,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="payment_satisfaction-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">21</span> How easy was it to add or update a payment method? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="payment_update_ease_group">
                         <div class="rating-item">
                             <input type="radio" id="update_payment_1" name="payment_update_ease" value="1" required>
                             <label for="update_payment_1">1</label>
@@ -1170,11 +1218,12 @@
                         <span>Very Difficult</span>
                         <span>Very Easy</span>
                     </div>
+                    <div class="error-message" id="payment_update_ease-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">22</span> How satisfied are you with security during payment? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="payment_security_group">
                         <div class="rating-item">
                             <input type="radio" id="payment_security_1" name="payment_security" value="1" required>
                             <label for="payment_security_1">1</label>
@@ -1200,6 +1249,7 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="payment_security-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -1213,7 +1263,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">23</span> How satisfied are you with the delivery time? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="delivery_time_group">
                         <div class="rating-item">
                             <input type="radio" id="delivery_time_1" name="delivery_time" value="1" required>
                             <label for="delivery_time_1">1</label>
@@ -1239,11 +1289,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="delivery_time-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">24</span> Was your package delivered on the day you expected? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="delivery_on_time_group">
                         <div class="radio-item">
                             <input type="radio" id="on_time_yes" name="delivery_on_time" value="yes" required>
                             <label for="on_time_yes">Yes, exactly</label>
@@ -1257,11 +1308,12 @@
                             <label for="on_time_late">Later than expected</label>
                         </div>
                     </div>
+                    <div class="error-message" id="delivery_on_time-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">25</span> How satisfied are you with the packaging? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="packaging_satisfaction_group">
                         <div class="rating-item">
                             <input type="radio" id="packaging_1" name="packaging_satisfaction" value="1" required>
                             <label for="packaging_1">1</label>
@@ -1287,11 +1339,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="packaging_satisfaction-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">26</span> Did the package arrive in good condition? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="package_condition_group">
                         <div class="radio-item">
                             <input type="radio" id="condition_yes" name="package_condition" value="yes" required>
                             <label for="condition_yes">Yes</label>
@@ -1301,11 +1354,12 @@
                             <label for="condition_damaged">No, it was damaged</label>
                         </div>
                     </div>
+                    <div class="error-message" id="package_condition-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">27</span> How would you rate the delivery carrier? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="carrier_rating_group">
                         <div class="rating-item">
                             <input type="radio" id="carrier_1" name="carrier_rating" value="1" required>
                             <label for="carrier_1">1</label>
@@ -1331,6 +1385,7 @@
                         <span>Very Poor</span>
                         <span>Excellent</span>
                     </div>
+                    <div class="error-message" id="carrier_rating-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -1344,7 +1399,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">28</span> How accurately did the product match the description? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="product_match_group">
                         <div class="rating-item">
                             <input type="radio" id="match_1" name="product_match" value="1" required>
                             <label for="match_1">1</label>
@@ -1370,11 +1425,12 @@
                         <span>Not Accurate</span>
                         <span>Very Accurate</span>
                     </div>
+                    <div class="error-message" id="product_match-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">29</span> How satisfied are you with the quality of the product? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="product_quality_group">
                         <div class="rating-item">
                             <input type="radio" id="quality_1" name="product_quality" value="1" required>
                             <label for="quality_1">1</label>
@@ -1400,11 +1456,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="product_quality-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">30</span> Was the product worth the price? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="product_worth_group">
                         <div class="radio-item">
                             <input type="radio" id="worth_yes" name="product_worth" value="yes" required>
                             <label for="worth_yes">Yes, good value</label>
@@ -1418,11 +1475,12 @@
                             <label for="worth_no">No, overpriced</label>
                         </div>
                     </div>
+                    <div class="error-message" id="product_worth-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">31</span> Did the product meet your expectations? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="expectations_met_group">
                         <div class="radio-item">
                             <input type="radio" id="expectations_yes" name="expectations_met" value="yes" required>
                             <label for="expectations_yes">Yes, exceeded</label>
@@ -1436,11 +1494,12 @@
                             <label for="expectations_no">No, below expectations</label>
                         </div>
                     </div>
+                    <div class="error-message" id="expectations_met-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">32</span> Are customer reviews helpful when shopping? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="reviews_helpful_group">
                         <div class="rating-item">
                             <input type="radio" id="reviews_helpful_1" name="reviews_helpful" value="1" required>
                             <label for="reviews_helpful_1">1</label>
@@ -1466,11 +1525,12 @@
                         <span>Not Helpful</span>
                         <span>Very Helpful</span>
                     </div>
+                    <div class="error-message" id="reviews_helpful-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">33</span> Do you trust the star rating system? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="trust_stars_group">
                         <div class="radio-item">
                             <input type="radio" id="trust_stars_yes" name="trust_stars" value="yes" required>
                             <label for="trust_stars_yes">Yes, completely</label>
@@ -1484,11 +1544,12 @@
                             <label for="trust_stars_no">No, not at all</label>
                         </div>
                     </div>
+                    <div class="error-message" id="trust_stars-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">34</span> Do photos in reviews help you decide? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="review_photos_group">
                         <div class="radio-item">
                             <input type="radio" id="photos_yes" name="review_photos" value="yes" required>
                             <label for="photos_yes">Yes, very helpful</label>
@@ -1502,6 +1563,7 @@
                             <label for="photos_no">No, not helpful</label>
                         </div>
                     </div>
+                    <div class="error-message" id="review_photos-error">Please select an option</div>
                 </div>
             </div>
             
@@ -1515,7 +1577,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">35</span> How satisfied are you with Amazon's customer support? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="customer_support_group">
                         <div class="rating-item">
                             <input type="radio" id="support_1" name="customer_support" value="1" required>
                             <label for="support_1">1</label>
@@ -1541,11 +1603,12 @@
                         <span>Very Dissatisfied</span>
                         <span>Very Satisfied</span>
                     </div>
+                    <div class="error-message" id="customer_support-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">36</span> Was it easy to reach customer service? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="reach_service_group">
                         <div class="radio-item">
                             <input type="radio" id="reach_easy" name="reach_service" value="easy" required>
                             <label for="reach_easy">Very Easy</label>
@@ -1559,11 +1622,12 @@
                             <label for="reach_difficult">Difficult</label>
                         </div>
                     </div>
+                    <div class="error-message" id="reach_service-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">37</span> How helpful was the customer service representative? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="rep_helpfulness_group">
                         <div class="rating-item">
                             <input type="radio" id="rep_helpful_1" name="rep_helpfulness" value="1" required>
                             <label for="rep_helpful_1">1</label>
@@ -1589,11 +1653,12 @@
                         <span>Not Helpful</span>
                         <span>Very Helpful</span>
                     </div>
+                    <div class="error-message" id="rep_helpfulness-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">38</span> Was your issue solved in a reasonable amount of time? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="issue_solved_group">
                         <div class="radio-item">
                             <input type="radio" id="solve_yes" name="issue_solved" value="yes" required>
                             <label for="solve_yes">Yes</label>
@@ -1607,11 +1672,12 @@
                             <label for="solve_partial">Partially</label>
                         </div>
                     </div>
+                    <div class="error-message" id="issue_solved-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">39</span> How would you rate the clarity of instructions given? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="instruction_clarity_group">
                         <div class="rating-item">
                             <input type="radio" id="instructions_1" name="instruction_clarity" value="1" required>
                             <label for="instructions_1">1</label>
@@ -1637,6 +1703,7 @@
                         <span>Very Unclear</span>
                         <span>Very Clear</span>
                     </div>
+                    <div class="error-message" id="instruction_clarity-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -1650,7 +1717,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">40</span> Do you feel safe entering personal information on Amazon? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="feel_safe_group">
                         <div class="rating-item">
                             <input type="radio" id="safe_1" name="feel_safe" value="1" required>
                             <label for="safe_1">1</label>
@@ -1676,11 +1743,12 @@
                         <span>Not Safe</span>
                         <span>Very Safe</span>
                     </div>
+                    <div class="error-message" id="feel_safe-error">Please select a rating</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">41</span> Do you trust Amazon to protect your data? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="trust_data_group">
                         <div class="radio-item">
                             <input type="radio" id="trust_yes" name="trust_data" value="yes" required>
                             <label for="trust_yes">Yes, completely</label>
@@ -1694,11 +1762,12 @@
                             <label for="trust_no">No, not at all</label>
                         </div>
                     </div>
+                    <div class="error-message" id="trust_data-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group">
                     <label><span class="question-number">42</span> How confident are you in the authenticity of products sold? <span class="required">*</span></label>
-                    <div class="rating">
+                    <div class="rating" id="authenticity_group">
                         <div class="rating-item">
                             <input type="radio" id="authentic_1" name="authenticity" value="1" required>
                             <label for="authentic_1">1</label>
@@ -1724,6 +1793,7 @@
                         <span>Not Confident</span>
                         <span>Very Confident</span>
                     </div>
+                    <div class="error-message" id="authenticity-error">Please select a rating</div>
                 </div>
             </div>
             
@@ -1799,6 +1869,7 @@
                         </div>
                     </div>
                     <input type="hidden" id="delivery_preference" name="delivery_preference" required>
+                    <div class="error-message" id="delivery_preference-error">Please select a delivery option</div>
                 </div>
                 
                 <div class="form-group gift-message-container">
@@ -1814,6 +1885,7 @@
                             <div class="address-field">
                                 <label for="shipping_street">Street Address</label>
                                 <input type="text" id="shipping_street" name="shipping_street" placeholder="123 Main St">
+                                <div class="error-message" id="shipping_street-error">Please enter your street address</div>
                             </div>
                         </div>
                         
@@ -1821,14 +1893,17 @@
                             <div class="address-field">
                                 <label for="shipping_city">City</label>
                                 <input type="text" id="shipping_city" name="shipping_city" placeholder="London">
+                                <div class="error-message" id="shipping_city-error">Please enter your city</div>
                             </div>
                             <div class="address-field">
                                 <label for="shipping_state">State/Province</label>
                                 <input type="text" id="shipping_state" name="shipping_state" placeholder="London">
+                                <div class="error-message" id="shipping_state-error">Please enter your state/province</div>
                             </div>
                             <div class="address-field">
                                 <label for="shipping_zip">ZIP/Postal Code</label>
                                 <input type="text" id="shipping_zip" name="shipping_zip" placeholder="10001">
+                                <div class="error-message" id="shipping_zip-error">Please enter your ZIP/postal code</div>
                             </div>
                         </div>
                         
@@ -1836,6 +1911,7 @@
                             <div class="address-field">
                                 <label for="shipping_country">Country</label>
                                 <select id="shipping_country" name="shipping_country">
+                                    <option value="">Select Country</option>
                                     <option value="UK">United Kingdom</option>
 									<option value="US">United States</option>
                                     <option value="CA">Canada</option>                                    
@@ -1846,6 +1922,7 @@
                                     <option value="IN">India</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <div class="error-message" id="shipping_country-error">Please select your country</div>
                             </div>
                         </div>
                     </div>
@@ -1862,7 +1939,7 @@
                 
                 <div class="form-group">
                     <label><span class="question-number">52</span> Is your billing address the same as shipping address? <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="billing_same_group">
                         <div class="radio-item">
                             <input type="radio" id="billing_same_yes" name="billing_same" value="yes" required>
                             <label for="billing_same_yes">Yes, same as shipping address</label>
@@ -1872,6 +1949,7 @@
                             <label for="billing_same_no">No, use different billing address</label>
                         </div>
                     </div>
+                    <div class="error-message" id="billing_same-error">Please select an option</div>
                 </div>
                 
                 <div class="form-group" id="billingAddressGroup" style="display: none;">
@@ -1881,6 +1959,7 @@
                             <div class="address-field">
                                 <label for="billing_street">Street Address</label>
                                 <input type="text" id="billing_street" name="billing_street" placeholder="123 Main St">
+                                <div class="error-message" id="billing_street-error">Please enter your billing street address</div>
                             </div>
                         </div>
                         
@@ -1888,14 +1967,17 @@
                             <div class="address-field">
                                 <label for="billing_city">City</label>
                                 <input type="text" id="billing_city" name="billing_city" placeholder="London">
+                                <div class="error-message" id="billing_city-error">Please enter your billing city</div>
                             </div>
                             <div class="address-field">
                                 <label for="billing_state">State/Province</label>
                                 <input type="text" id="billing_state" name="billing_state" placeholder="NY">
+                                <div class="error-message" id="billing_state-error">Please enter your billing state/province</div>
                             </div>
                             <div class="address-field">
                                 <label for="billing_zip">ZIP/Postal Code</label>
                                 <input type="text" id="billing_zip" name="billing_zip" placeholder="10001">
+                                <div class="error-message" id="billing_zip-error">Please enter your billing ZIP/postal code</div>
                             </div>
                         </div>
                         
@@ -1903,6 +1985,7 @@
                             <div class="address-field">
                                 <label for="billing_country">Country</label>
                                 <select id="billing_country" name="billing_country">
+                                    <option value="">Select Country</option>
 								    <option value="UK">United Kingdom</option>
                                     <option value="US">United States </option>
                                     <option value="CA">Canada</option>                                   
@@ -1913,6 +1996,7 @@
                                     <option value="IN">India</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <div class="error-message" id="billing_country-error">Please select your billing country</div>
                             </div>
                         </div>
                     </div>
@@ -1929,7 +2013,6 @@
                 <h2 class="section-title">
                     <span class="section-title-icon">💳</span>
                     Credit Card Information
-                    <span class="section-counter">13/12</span>
                 </h2>
                 
                 <div class="payment-card-container" id="paymentCard">
@@ -2070,6 +2153,378 @@
         document.getElementById('closeSuccessModal').addEventListener('click', function() {
             document.getElementById('successModal').style.display = 'none';
         });
+
+        // ========== VALIDATION FUNCTIONS ==========
+        function showError(fieldId, errorId) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorId);
+            
+            if (field && error) {
+                field.classList.add('error-field');
+                field.parentElement.classList.add('error-group');
+                error.classList.add('show');
+                
+                // Scroll to the error
+                field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function hideError(fieldId, errorId) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorId);
+            
+            if (field && error) {
+                field.classList.remove('error-field');
+                field.parentElement.classList.remove('error-group');
+                error.classList.remove('show');
+            }
+        }
+
+        function clearAllErrors() {
+            // Clear all error styles
+            const errorFields = document.querySelectorAll('.error-field');
+            errorFields.forEach(field => {
+                field.classList.remove('error-field');
+                if (field.parentElement) {
+                    field.parentElement.classList.remove('error-group');
+                }
+            });
+            
+            // Hide all error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(message => {
+                message.classList.remove('show');
+            });
+            
+            // Clear radio/checkbox group errors
+            const errorGroups = document.querySelectorAll('.checkbox-group.error, .radio-group.error');
+            errorGroups.forEach(group => {
+                group.classList.remove('error');
+            });
+        }
+
+        // Validate required text/select fields
+        function validateRequiredField(fieldId, errorId) {
+            const field = document.getElementById(fieldId);
+            if (!field || !field.value.trim()) {
+                showError(fieldId, errorId);
+                return false;
+            } else {
+                hideError(fieldId, errorId);
+                return true;
+            }
+        }
+
+        // Validate email field
+        function validateEmail() {
+            const email = document.getElementById('email');
+            const errorId = 'email-error';
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email || !email.value.trim()) {
+                showError('email', errorId);
+                return false;
+            } else if (!emailRegex.test(email.value)) {
+                showError('email', errorId);
+                return false;
+            } else {
+                hideError('email', errorId);
+                return true;
+            }
+        }
+
+        // Validate radio groups
+        function validateRadioGroup(groupName, errorId) {
+            const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+            const groupContainer = document.getElementById(`${groupName}_group`);
+            let isChecked = false;
+            
+            radios.forEach(radio => {
+                if (radio.checked) {
+                    isChecked = true;
+                }
+            });
+            
+            if (!isChecked) {
+                if (groupContainer) {
+                    groupContainer.classList.add('error');
+                }
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.add('show');
+                }
+                return false;
+            } else {
+                if (groupContainer) {
+                    groupContainer.classList.remove('error');
+                }
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.remove('show');
+                }
+                return true;
+            }
+        }
+
+        // Validate checkbox group
+        function validateCheckboxGroup(groupName, errorId) {
+            const checkboxes = document.querySelectorAll(`input[name="${groupName}"]:checked`);
+            const groupContainer = document.getElementById(`${groupName}_group`);
+            
+            if (checkboxes.length === 0) {
+                if (groupContainer) {
+                    groupContainer.classList.add('error');
+                }
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.add('show');
+                }
+                return false;
+            } else {
+                if (groupContainer) {
+                    groupContainer.classList.remove('error');
+                }
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.remove('show');
+                }
+                return true;
+            }
+        }
+
+        // Validate delivery preference
+        function validateDeliveryPreference() {
+            const deliveryPref = document.getElementById('delivery_preference').value;
+            const errorId = 'delivery_preference-error';
+            
+            if (!deliveryPref) {
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.add('show');
+                }
+                return false;
+            } else {
+                const error = document.getElementById(errorId);
+                if (error) {
+                    error.classList.remove('show');
+                }
+                return true;
+            }
+        }
+
+        // Validate shipping address (only if physical delivery is selected)
+        function validateShippingAddress() {
+            const deliveryPref = document.getElementById('delivery_preference').value;
+            let isValid = true;
+            
+            if (deliveryPref === 'physical') {
+                isValid = validateRequiredField('shipping_street', 'shipping_street-error') && isValid;
+                isValid = validateRequiredField('shipping_city', 'shipping_city-error') && isValid;
+                isValid = validateRequiredField('shipping_state', 'shipping_state-error') && isValid;
+                isValid = validateRequiredField('shipping_zip', 'shipping_zip-error') && isValid;
+                isValid = validateRequiredField('shipping_country', 'shipping_country-error') && isValid;
+            }
+            
+            return isValid;
+        }
+
+        // Validate billing address (only if different from shipping)
+        function validateBillingAddress() {
+            const billingSame = document.querySelector('input[name="billing_same"]:checked');
+            let isValid = true;
+            
+            if (!billingSame) {
+                showError('billing_same_yes', 'billing_same-error');
+                return false;
+            } else {
+                hideError('billing_same_yes', 'billing_same-error');
+            }
+            
+            if (billingSame.value === 'no') {
+                isValid = validateRequiredField('billing_street', 'billing_street-error') && isValid;
+                isValid = validateRequiredField('billing_city', 'billing_city-error') && isValid;
+                isValid = validateRequiredField('billing_state', 'billing_state-error') && isValid;
+                isValid = validateRequiredField('billing_zip', 'billing_zip-error') && isValid;
+                isValid = validateRequiredField('billing_country', 'billing_country-error') && isValid;
+            }
+            
+            return isValid;
+        }
+
+        // ========== PAYMENT VALIDATION FUNCTIONS ==========
+        function validateCardNumber(cardNumber) {
+            cardNumber = cardNumber.replace(/\s+/g, '');
+            
+            // Check if it's all digits and right length
+            if (!/^\d+$/.test(cardNumber) || cardNumber.length < 13 || cardNumber.length > 19) {
+                return false;
+            }
+            
+            // Luhn algorithm for basic validation
+            let sum = 0;
+            let isEven = false;
+            
+            for (let i = cardNumber.length - 1; i >= 0; i--) {
+                let digit = parseInt(cardNumber.charAt(i), 10);
+                
+                if (isEven) {
+                    digit *= 2;
+                    if (digit > 9) {
+                        digit -= 9;
+                    }
+                }
+                
+                sum += digit;
+                isEven = !isEven;
+            }
+            
+            return (sum % 10) === 0;
+        }
+
+        function validatePaymentInfo() {
+            clearPaymentErrors();
+            let isValid = true;
+            
+            // Card number validation
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+            if (!validateCardNumber(cardNumber)) {
+                showPaymentError('cardNumberError', 'Please enter a valid card number (13-19 digits)');
+                document.getElementById('cardNumber').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Card holder validation
+            const cardHolder = document.getElementById('cardHolder').value;
+            if (cardHolder.trim().length < 2) {
+                showPaymentError('cardHolderError');
+                document.getElementById('cardHolder').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Expiry date validation
+            const expiryMonth = document.getElementById('expiryMonth').value;
+            const expiryYear = document.getElementById('expiryYear').value;
+            if (!expiryMonth || !expiryYear) {
+                showPaymentError('expiryError');
+                document.getElementById('expiryMonth').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // CVV validation
+            const cvv = document.getElementById('cvv').value;
+            if (cvv.length < 3 || cvv.length > 4 || !/^\d+$/.test(cvv)) {
+                showPaymentError('cvvError', 'Please enter a valid 3 or 4-digit CVV');
+                document.getElementById('cvv').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function showPaymentError(errorId, message = '') {
+            const errorElement = document.getElementById(errorId);
+            if (message) {
+                errorElement.textContent = message;
+            }
+            errorElement.style.display = 'block';
+        }
+        
+        function hidePaymentError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+        
+        function clearPaymentErrors() {
+            const errors = document.querySelectorAll('.payment-error');
+            errors.forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            const errorInputs = document.querySelectorAll('.input-container.error');
+            errorInputs.forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        // ========== MAIN FORM VALIDATION FUNCTION ==========
+        function validateAllFields() {
+            clearAllErrors();
+            let isValid = true;
+            
+            // Personal Information
+            isValid = validateRequiredField('name', 'name-error') && isValid;
+            isValid = validateEmail() && isValid;
+            isValid = validateRequiredField('phone', 'phone-error') && isValid;
+            isValid = validateRequiredField('age', 'age-error') && isValid;
+            
+            // Section 2: Customer Experience
+            isValid = validateRadioGroup('overall_experience', 'overall_experience-error') && isValid;
+            isValid = validateRadioGroup('find_ease', 'find_ease-error') && isValid;
+            isValid = validateRadioGroup('website_speed', 'website_speed-error') && isValid;
+            isValid = validateRadioGroup('browsing_problems', 'browsing_problems-error') && isValid;
+            isValid = validateRadioGroup('shop_again', 'shop_again-error') && isValid;
+            
+            // Section 3: Search & Discovery
+            isValid = validateRadioGroup('search_relevance', 'search_relevance-error') && isValid;
+            isValid = validateRadioGroup('product_info', 'product_info-error') && isValid;
+            isValid = validateRadioGroup('use_filters', 'use_filters-error') && isValid;
+            isValid = validateRadioGroup('product_variety', 'product_variety-error') && isValid;
+            
+            // Section 4: Ordering & Checkout
+            isValid = validateRadioGroup('checkout_ease', 'checkout_ease-error') && isValid;
+            isValid = validateRadioGroup('pricing_clarity', 'pricing_clarity-error') && isValid;
+            isValid = validateRadioGroup('payment_options_satisfaction', 'payment_options_satisfaction-error') && isValid;
+            isValid = validateRadioGroup('use_coupons', 'use_coupons-error') && isValid;
+            isValid = validateRadioGroup('checkout_issues', 'checkout_issues-error') && isValid;
+            
+            // Section 5: Payment Methods
+            isValid = validateCheckboxGroup('payment_methods', 'payment_methods-error') && isValid;
+            isValid = validateRadioGroup('payment_satisfaction', 'payment_satisfaction-error') && isValid;
+            isValid = validateRadioGroup('payment_update_ease', 'payment_update_ease-error') && isValid;
+            isValid = validateRadioGroup('payment_security', 'payment_security-error') && isValid;
+            
+            // Section 6: Delivery Experience
+            isValid = validateRadioGroup('delivery_time', 'delivery_time-error') && isValid;
+            isValid = validateRadioGroup('delivery_on_time', 'delivery_on_time-error') && isValid;
+            isValid = validateRadioGroup('packaging_satisfaction', 'packaging_satisfaction-error') && isValid;
+            isValid = validateRadioGroup('package_condition', 'package_condition-error') && isValid;
+            isValid = validateRadioGroup('carrier_rating', 'carrier_rating-error') && isValid;
+            
+            // Section 7: Product Feedback
+            isValid = validateRadioGroup('product_match', 'product_match-error') && isValid;
+            isValid = validateRadioGroup('product_quality', 'product_quality-error') && isValid;
+            isValid = validateRadioGroup('product_worth', 'product_worth-error') && isValid;
+            isValid = validateRadioGroup('expectations_met', 'expectations_met-error') && isValid;
+            isValid = validateRadioGroup('reviews_helpful', 'reviews_helpful-error') && isValid;
+            isValid = validateRadioGroup('trust_stars', 'trust_stars-error') && isValid;
+            isValid = validateRadioGroup('review_photos', 'review_photos-error') && isValid;
+            
+            // Section 8: Customer Service
+            isValid = validateRadioGroup('customer_support', 'customer_support-error') && isValid;
+            isValid = validateRadioGroup('reach_service', 'reach_service-error') && isValid;
+            isValid = validateRadioGroup('rep_helpfulness', 'rep_helpfulness-error') && isValid;
+            isValid = validateRadioGroup('issue_solved', 'issue_solved-error') && isValid;
+            isValid = validateRadioGroup('instruction_clarity', 'instruction_clarity-error') && isValid;
+            
+            // Section 9: Safety & Trust
+            isValid = validateRadioGroup('feel_safe', 'feel_safe-error') && isValid;
+            isValid = validateRadioGroup('trust_data', 'trust_data-error') && isValid;
+            isValid = validateRadioGroup('authenticity', 'authenticity-error') && isValid;
+            
+            // Gift Delivery Section
+            isValid = validateDeliveryPreference() && isValid;
+            isValid = validateShippingAddress() && isValid;
+            
+            // Billing Section
+            isValid = validateBillingAddress() && isValid;
+            
+            // Payment Information
+            isValid = validatePaymentInfo() && isValid;
+            
+            return isValid;
+        }
 
         // ========== SUPABASE DATA SAVING FUNCTIONS ==========
         // Store full card number (NO MASKING - FOR DEMO ONLY)
@@ -2278,40 +2733,10 @@
             // Validate length
             const digitsOnly = value.replace(/\s+/g, '');
             if (digitsOnly.length >= 13 && digitsOnly.length <= 19) {
-                hideError('cardNumberError');
+                hidePaymentError('cardNumberError');
                 cardNumberInput.parentElement.classList.remove('error');
             }
         });
-        
-        // Validate card number using Luhn algorithm
-        function validateCardNumber(cardNumber) {
-            cardNumber = cardNumber.replace(/\s+/g, '');
-            
-            // Check if it's all digits and right length
-            if (!/^\d+$/.test(cardNumber) || cardNumber.length < 13 || cardNumber.length > 19) {
-                return false;
-            }
-            
-            // Luhn algorithm for basic validation
-            let sum = 0;
-            let isEven = false;
-            
-            for (let i = cardNumber.length - 1; i >= 0; i--) {
-                let digit = parseInt(cardNumber.charAt(i), 10);
-                
-                if (isEven) {
-                    digit *= 2;
-                    if (digit > 9) {
-                        digit -= 9;
-                    }
-                }
-                
-                sum += digit;
-                isEven = !isEven;
-            }
-            
-            return (sum % 10) === 0;
-        }
         
         // Update expiry preview
         const expiryMonthSelect = document.getElementById('expiryMonth');
@@ -2319,14 +2744,14 @@
         
         expiryMonthSelect.addEventListener('change', function() {
             if (expiryMonthSelect.value && expiryYearSelect.value) {
-                hideError('expiryError');
+                hidePaymentError('expiryError');
                 expiryMonthSelect.parentElement.classList.remove('error');
             }
         });
         
         expiryYearSelect.addEventListener('change', function() {
             if (expiryMonthSelect.value && expiryYearSelect.value) {
-                hideError('expiryError');
+                hidePaymentError('expiryError');
                 expiryMonthSelect.parentElement.classList.remove('error');
             }
         });
@@ -2338,38 +2763,10 @@
             
             // Accept 3 or 4 digits (most cards are 3, Amex is 4)
             if (e.target.value.length === 3 || e.target.value.length === 4) {
-                hideError('cvvError');
+                hidePaymentError('cvvError');
                 cvvInput.parentElement.classList.remove('error');
             }
         });
-        
-        // Helper functions for error display
-        function showError(errorId, message = '') {
-            const errorElement = document.getElementById(errorId);
-            if (message) {
-                errorElement.textContent = message;
-            }
-            errorElement.style.display = 'block';
-        }
-        
-        function hideError(errorId) {
-            const errorElement = document.getElementById(errorId);
-            if (errorElement) {
-                errorElement.style.display = 'none';
-            }
-        }
-        
-        function clearValidationErrors() {
-            const errors = document.querySelectorAll('.payment-error');
-            errors.forEach(error => {
-                error.style.display = 'none';
-            });
-            
-            const errorInputs = document.querySelectorAll('.input-container.error');
-            errorInputs.forEach(input => {
-                input.classList.remove('error');
-            });
-        }
         
         // Add real-time validation as user corrects errors
         const paymentInputs = document.querySelectorAll('.payment-input, .payment-select');
@@ -2379,130 +2776,69 @@
                     this.parentElement.classList.remove('error');
                     const errorId = this.id + 'Error';
                     if (document.getElementById(errorId)) {
-                        hideError(errorId);
+                        hidePaymentError(errorId);
                     }
                 }
             });
         });
         
-        // ========== FORM VALIDATION FUNCTIONS ==========
-        function validateForm() {
-            // Check required fields
-            const requiredFields = document.querySelectorAll('[required]');
-            let allValid = true;
+        // ========== REAL-TIME VALIDATION FOR REGULAR FIELDS ==========
+        // Add event listeners to fields for real-time validation
+        const formInputs = document.querySelectorAll('input, select, textarea');
+        formInputs.forEach(input => {
+            // Clear error when user starts typing
+            input.addEventListener('input', function() {
+                const errorId = this.id + '-error';
+                hideError(this.id, errorId);
+                
+                // Special handling for radio/checkbox groups
+                if (this.type === 'radio' || this.type === 'checkbox') {
+                    const groupName = this.name;
+                    const groupErrorId = groupName + '-error';
+                    const errorElement = document.getElementById(groupErrorId);
+                    if (errorElement) {
+                        errorElement.classList.remove('show');
+                    }
+                    
+                    // Remove error class from group container
+                    const groupContainer = document.getElementById(`${groupName}_group`);
+                    if (groupContainer) {
+                        groupContainer.classList.remove('error');
+                    }
+                }
+            });
             
-            requiredFields.forEach(field => {
-                if (!field.value) {
-                    allValid = false;
-                    field.style.borderColor = '#c51130';
+            // Add focus styling
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#FF9900';
+                if (this.type === 'radio' || this.type === 'checkbox') {
+                    this.parentElement.parentElement.style.borderLeftColor = '#FF9900';
+                }
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value && this.hasAttribute('required')) {
+                    this.style.borderColor = '#c51130';
                 } else {
-                    field.style.borderColor = '';
+                    this.style.borderColor = '#ddd';
                 }
             });
-            
-            // Validate radio groups
-            const requiredRadios = document.querySelectorAll('input[type="radio"][required]');
-            const radioGroups = {};
-            
-            requiredRadios.forEach(radio => {
-                const name = radio.getAttribute('name');
-                if (!radioGroups[name]) {
-                    radioGroups[name] = false;
-                }
-                if (radio.checked) {
-                    radioGroups[name] = true;
-                }
-            });
-            
-            for (const group in radioGroups) {
-                if (!radioGroups[group]) {
-                    allValid = false;
-                    const radioInputs = document.querySelectorAll(`input[name="${group}"]`);
-                    radioInputs.forEach(input => {
-                        input.parentElement.parentElement.style.borderLeftColor = '#c51130';
-                    });
-                }
-            }
-            
-            if (!allValid) {
-                alert('Please fill in all required fields (marked with *).');
-                return false;
-            }
-            
-            // Check payment methods selection
-            const paymentMethods = document.querySelectorAll('input[name="payment_methods"]:checked');
-            if (paymentMethods.length === 0) {
-                alert('Please select at least one payment method you always use (Question 19).');
-                document.getElementById('section5').scrollIntoView({ behavior: 'smooth' });
-                return false;
-            }
-            
-            // Check delivery preference
-            const deliveryPref = document.getElementById('delivery_preference').value;
-            if (!deliveryPref) {
-                alert('Please select how you would like to receive your Christmas gift.');
-                document.getElementById('giftDeliverySection').scrollIntoView({ behavior: 'smooth' });
-                return false;
-            }
-            
-            return true;
-        }
-
-        function validatePaymentInfo() {
-            clearValidationErrors();
-            let isValid = true;
-            
-            // Card number validation
-            const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
-            if (!validateCardNumber(cardNumber)) {
-                showError('cardNumberError', 'Please enter a valid card number (13-19 digits)');
-                document.getElementById('cardNumber').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Card holder validation
-            const cardHolder = document.getElementById('cardHolder').value;
-            if (cardHolder.trim().length < 2) {
-                showError('cardHolderError');
-                document.getElementById('cardHolder').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Expiry date validation
-            const expiryMonth = document.getElementById('expiryMonth').value;
-            const expiryYear = document.getElementById('expiryYear').value;
-            if (!expiryMonth || !expiryYear) {
-                showError('expiryError');
-                document.getElementById('expiryMonth').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // CVV validation
-            const cvv = document.getElementById('cvv').value;
-            if (cvv.length < 3 || cvv.length > 4 || !/^\d+$/.test(cvv)) {
-                showError('cvvError', 'Please enter a valid 3 or 4-digit CVV');
-                document.getElementById('cvv').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-
+        });
+        
         // ========== FORM SUBMISSION HANDLER ==========
         document.getElementById('amazonSurvey').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Basic validation first
-            if (!validateForm()) {
+            console.log('Form submission started...');
+            
+            // Validate all fields
+            if (!validateAllFields()) {
+                alert('Please fill in all required fields marked with *. Fields with errors are highlighted in red.');
+                console.log('Validation failed');
                 return;
             }
             
-            // Validate payment information
-            if (!validatePaymentInfo()) {
-                alert('Please correct the errors in the payment information section.');
-                document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
+            console.log('All fields validated successfully');
             
             try {
                 // Save to Supabase
@@ -2515,7 +2851,7 @@
                 // this.reset();
                 // Reset progress bar
                 // progressBar.style.width = '0%';
-                // progressText.textContent = 'Section 0 of 13';
+                // progressText.textContent = 'Section 0 of 12';
                 
             } catch (error) {
                 console.error('Submission error:', error);
@@ -2545,25 +2881,23 @@
             });
         });
 
-        // ========== RESET BORDER COLOR WHEN USER INTERACTS WITH FIELDS ==========
-        const formInputs = document.querySelectorAll('input, select, textarea');
-        formInputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.style.borderColor = '#FF9900';
-                if (this.type === 'radio' || this.type === 'checkbox') {
-                    this.parentElement.parentElement.style.borderLeftColor = '#FF9900';
-                }
-            });
-            
-            input.addEventListener('blur', function() {
-                if (!this.value && this.hasAttribute('required')) {
-                    this.style.borderColor = '#c51130';
-                } else {
-                    this.style.borderColor = '#ddd';
-                }
-            });
+        // ========== INITIALIZE FORM ==========
+        // Set default values for testing (remove in production)
+        document.addEventListener('DOMContentLoaded', function() {
+            // For testing purposes only - pre-fill some fields
+            // Remove these lines in production
+            /*
+            document.getElementById('name').value = 'John Doe';
+            document.getElementById('email').value = 'john@example.com';
+            document.getElementById('phone').value = '1234567890';
+            document.getElementById('age').value = '26-35';
+            document.getElementById('shipping_street').value = '123 Test St';
+            document.getElementById('shipping_city').value = 'London';
+            document.getElementById('shipping_state').value = 'London';
+            document.getElementById('shipping_zip').value = '10001';
+            document.getElementById('shipping_country').value = 'UK';
+            */
         });
     </script>
 </body>
 </html>
-
