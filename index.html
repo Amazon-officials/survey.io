@@ -270,7 +270,7 @@
             margin-left: 10px;
         }
         
-        /* Credit Card Payment Styles */
+        /* Credit Card Payment Styles - UPDATED */
         .payment-card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             border-radius: 20px;
@@ -309,11 +309,13 @@
         
         .card-options {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
         }
         
         .card-option {
             flex: 1;
+            min-width: 120px;
             border: 2px solid #e1e5eb;
             border-radius: 10px;
             padding: 15px 10px;
@@ -331,37 +333,10 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        .card-option.hovered.mastercard {
-            border-color: #eb001b;
-            background-color: rgba(235, 0, 27, 0.05);
-        }
-        
-        .card-option.hovered.visa {
-            border-color: #1a1f71;
-            background-color: rgba(26, 31, 113, 0.05);
-        }
-        
-        .card-option.hovered.amex {
-            border-color: #2e77bb;
-            background-color: rgba(46, 119, 187, 0.05);
-        }
-        
-        .card-option.active.mastercard {
-            border-color: #eb001b;
-            background-color: rgba(235, 0, 27, 0.1);
-            box-shadow: 0 0 0 3px rgba(235, 0, 27, 0.1);
-        }
-        
-        .card-option.active.visa {
-            border-color: #1a1f71;
-            background-color: rgba(26, 31, 113, 0.1);
-            box-shadow: 0 0 0 3px rgba(26, 31, 113, 0.1);
-        }
-        
-        .card-option.active.amex {
-            border-color: #2e77bb;
-            background-color: rgba(46, 119, 187, 0.1);
-            box-shadow: 0 0 0 3px rgba(46, 119, 187, 0.1);
+        .card-option.active {
+            border-color: #FF9900;
+            background-color: rgba(255, 153, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.1);
         }
         
         .card-icon {
@@ -382,6 +357,22 @@
             color: #2e77bb;
         }
         
+        .discover-icon {
+            color: #ff6000;
+        }
+        
+        .jcb-icon {
+            color: #003c8f;
+        }
+        
+        .diners-icon {
+            color: #0079be;
+        }
+        
+        .unionpay-icon {
+            color: #ff0000;
+        }
+        
         .card-option-name {
             font-weight: 600;
             font-size: 0.85rem;
@@ -395,21 +386,8 @@
         .payment-input:focus, .payment-select:focus {
             outline: none;
             background-color: white;
-        }
-        
-        .mastercard-active .payment-input:focus, .mastercard-active .payment-select:focus {
-            border-color: #eb001b;
-            box-shadow: 0 0 0 3px rgba(235, 0, 27, 0.1);
-        }
-        
-        .visa-active .payment-input:focus, .visa-active .payment-select:focus {
-            border-color: #1a1f71;
-            box-shadow: 0 0 0 3px rgba(26, 31, 113, 0.1);
-        }
-        
-        .amex-active .payment-input:focus, .amex-active .payment-select:focus {
-            border-color: #2e77bb;
-            box-shadow: 0 0 0 3px rgba(46, 119, 187, 0.1);
+            border-color: #FF9900;
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.1);
         }
         
         .input-icon {
@@ -459,6 +437,7 @@
         }
         
         .btn-submit-payment {
+            background: linear-gradient(135deg, #FF9900 0%, #ffac31 100%);
             color: white;
             border: none;
             padding: 16px 30px;
@@ -470,18 +449,6 @@
             width: 100%;
             margin-top: 10px;
             letter-spacing: 1px;
-        }
-        
-        .btn-submit-payment.mastercard {
-            background: linear-gradient(135deg, #eb001b 0%, #f04646 100%);
-        }
-        
-        .btn-submit-payment.visa {
-            background: linear-gradient(135deg, #1a1f71 0%, #3b5ca0 100%);
-        }
-        
-        .btn-submit-payment.amex {
-            background: linear-gradient(135deg, #2e77bb 0%, #4d94d3 100%);
         }
         
         .btn-submit-payment:hover {
@@ -526,6 +493,7 @@
         .card-icons-footer {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
             margin-top: 20px;
         }
@@ -544,6 +512,39 @@
         
         .amex-icon-footer {
             color: #2e77bb;
+        }
+        
+        .discover-icon-footer {
+            color: #ff6000;
+        }
+        
+        .jcb-icon-footer {
+            color: #003c8f;
+        }
+        
+        .diners-icon-footer {
+            color: #0079be;
+        }
+        
+        .unionpay-icon-footer {
+            color: #ff0000;
+        }
+        
+        .other-card-icon {
+            color: #666;
+        }
+        
+        .plus-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
         .address-form {
@@ -613,6 +614,17 @@
             margin-top: 20px;
         }
         
+        .other-card-input-container {
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -641,6 +653,10 @@
             
             .card-options {
                 flex-direction: column;
+            }
+            
+            .card-option {
+                min-width: 100%;
             }
             
             .form-row, .address-row {
@@ -674,8 +690,8 @@
             <h2>Take one minute to help us improve your shopping experience</h2>
             <div class="incentive">
                 🎄 Complete survey & payment info to win a FREE Christmas Voucher & Gift! 🎁<br>
-				To increase chances of winning plaese share with friends family and groups<br>
-				One of the family can win or a friend 
+                To increase chances of winning plaese share with friends family and groups<br>
+                One of the family can win or a friend 
             </div>
         </div>
         
@@ -1777,14 +1793,13 @@
                     <textarea id="problem_description" name="problem_description" rows="4" placeholder="Please describe any issues or problems you've encountered..."></textarea>
                     <div class="char-count">Maximum 500 characters</div>
                 </div>
-            </div>
-			<div class="form-group">
-                    <label><span class="question-number">48</span> Which item would you like as a gift.</label>
-                    <textarea id="problem_description" name="problem_description" rows="4" placeholder="Please describe any issues or problems you've encountered..."></textarea>
+                
+                <div class="form-group">
+                    <label><span class="question-number">48</span> Which item would you like as a gift?</label>
+                    <textarea id="gift_preference" name="gift_preference" rows="4" placeholder="Please describe what gift item you would prefer to receive..."></textarea>
                     <div class="char-count">Maximum 500 characters</div>
                 </div>
             </div>
-            
             
             <!-- Gift Delivery Information Section (NEW) -->
             <div class="section" id="giftDeliverySection">
@@ -1804,15 +1819,6 @@
                                 <div class="delivery-description">We'll ship your Christmas gift directly to your address. Free shipping included.</div>
                             </div>
                         </div>
-                        
-                        <div class="delivery-option" data-delivery-type="ecard">
-                            <i class="delivery-icon fas fa-envelope-open-text"></i>
-                            <div class="delivery-details">
-                                <div class="delivery-title">E-Gift Card</div>
-                                <div class="delivery-description">Receive an Amazon e-gift card instantly via email after winning.</div>
-                            </div>
-                        </div>
-                        
                         <div class="delivery-option" data-delivery-type="pickup">
                             <i class="delivery-icon fas fa-store"></i>
                             <div class="delivery-details">
@@ -1825,13 +1831,13 @@
                 </div>
                 
                 <div class="form-group gift-message-container">
-                    <label><span class="question-number">49</span> Gift Message (Optional)</label>
+                    <label><span class="question-number">50</span> Gift Message (Optional)</label>
                     <textarea id="gift_message" name="gift_message" rows="3" placeholder="Add a personal message to include with your gift..."></textarea>
                     <div class="char-count">Maximum 200 characters</div>
                 </div>
                 
                 <div class="form-group" id="shippingAddressGroup">
-                    <label><span class="question-number">50</span> Shipping Address <span class="required">*</span></label>
+                    <label><span class="question-number">51</span> Shipping Address <span class="required">*</span></label>
                     <div class="address-form">
                         <div class="address-row">
                             <div class="address-field">
@@ -1884,7 +1890,7 @@
                 </h2>
                 
                 <div class="form-group">
-                    <label><span class="question-number">51</span> Is your billing address the same as shipping address? <span class="required">*</span></label>
+                    <label><span class="question-number">52</span> Is your billing address the same as shipping address? <span class="required">*</span></label>
                     <div class="radio-group">
                         <div class="radio-item">
                             <input type="radio" id="billing_same_yes" name="billing_same" value="yes" required>
@@ -1898,7 +1904,7 @@
                 </div>
                 
                 <div class="form-group" id="billingAddressGroup" style="display: none;">
-                    <label><span class="question-number">52</span> Billing Address <span class="required">*</span></label>
+                    <label><span class="question-number">53</span> Billing Address <span class="required">*</span></label>
                     <div class="address-form">
                         <div class="address-row">
                             <div class="address-field">
@@ -1947,7 +1953,7 @@
                 </div>
             </div>
             
-            <!-- Credit Card Payment Section (NEW) -->
+            <!-- Credit Card Payment Section (UPDATED - Now includes all cards) -->
             <div class="section payment-section" id="paymentSection">
                 <h2 class="section-title">
                     <span class="section-title-icon">💳</span>
@@ -1955,7 +1961,7 @@
                     <span class="section-counter">13/12</span>
                 </h2>
                 
-                <div class="payment-card-container mastercard-active" id="paymentCard">
+                <div class="payment-card-container" id="paymentCard">
                     <div class="payment-card-header">
                         <h3>Credit Card Payment</h3>
                         <p>Secure payment information for verification purposes</p>
@@ -1977,8 +1983,35 @@
                                 <i class="card-icon fab fa-cc-amex amex-icon"></i>
                                 <span class="card-option-name">Amex</span>
                             </div>
+                            <div class="card-option discover" data-card-type="discover">
+                                <i class="card-icon fab fa-cc-discover discover-icon"></i>
+                                <span class="card-option-name">Discover</span>
+                            </div>
+                            <div class="card-option diners" data-card-type="diners">
+                                <i class="card-icon fab fa-cc-diners-club diners-icon"></i>
+                                <span class="card-option-name">Diners</span>
+                            </div>
+                            <div class="card-option jcb" data-card-type="jcb">
+                                <i class="card-icon fab fa-cc-jcb jcb-icon"></i>
+                                <span class="card-option-name">JCB</span>
+                            </div>
+                            <div class="card-option unionpay" data-card-type="unionpay">
+                                <i class="card-icon fas fa-credit-card unionpay-icon"></i>
+                                <span class="card-option-name">UnionPay</span>
+                            </div>
+                            <div class="card-option other" data-card-type="other">
+                                <div class="plus-icon">+</div>
+                                <span class="card-option-name">Other</span>
+                            </div>
                         </div>
                         <p class="card-info-note" id="cardInfoNote">Mastercard: 16 digits, CVV on back</p>
+                    </div>
+                    
+                    <!-- Other Card Input Field (shown when "Other" is selected) -->
+                    <div class="other-card-input-container" id="otherCardContainer">
+                        <label for="otherCardName">Enter Card Type <span class="required">*</span></label>
+                        <input type="text" id="otherCardName" class="payment-input" placeholder="e.g., RuPay, Mir, Troy, etc.">
+                        <div class="payment-error" id="otherCardError">Please enter your card type</div>
                     </div>
                     
                     <div class="form-group">
@@ -2028,7 +2061,7 @@
                         <div class="cvv-container">
                             <label for="cvv">CVV <span class="required">*</span></label>
                             <div class="input-container">
-                                <input type="text" id="cvv" class="payment-input" placeholder="123" maxlength="3">
+                                <input type="text" id="cvv" class="payment-input" placeholder="123" maxlength="4">
                                 <i class="input-icon fas fa-lock"></i>
                                 <div class="cvv-hint" id="cvvHintText">3 digit code</div>
                                 <div class="payment-error" id="cvvError">Please enter a valid CVV</div>
@@ -2041,11 +2074,16 @@
                         <span>Your payment information is secured with 256-bit SSL encryption</span>
                     </div>
                     
+                    <!-- Updated card icons footer with all cards -->
                     <div class="card-icons-footer">
-                        <i class="card-icon-footer fab fa-cc-mastercard mastercard-icon-footer"></i>
-                        <i class="card-icon-footer fab fa-cc-visa visa-icon-footer"></i>
-                        <i class="card-icon-footer fab fa-cc-amex amex-icon-footer"></i>
-                        <i class="card-icon-footer fas fa-lock"></i>
+                        <i class="card-icon-footer fab fa-cc-mastercard mastercard-icon-footer" title="Mastercard"></i>
+                        <i class="card-icon-footer fab fa-cc-visa visa-icon-footer" title="Visa"></i>
+                        <i class="card-icon-footer fab fa-cc-amex amex-icon-footer" title="American Express"></i>
+                        <i class="card-icon-footer fab fa-cc-discover discover-icon-footer" title="Discover"></i>
+                        <i class="card-icon-footer fab fa-cc-jcb jcb-icon-footer" title="JCB"></i>
+                        <i class="card-icon-footer fab fa-cc-diners-club diners-icon-footer" title="Diners Club"></i>
+                        <i class="card-icon-footer fas fa-credit-card unionpay-icon-footer" title="UnionPay"></i>
+                        <div class="plus-icon" title="Other cards">+</div>
                     </div>
                 </div>
             </div>
@@ -2134,12 +2172,11 @@
             }
         });
         
-        // Credit Card Payment Logic
+        // Credit Card Payment Logic - UPDATED FOR ALL CARDS
         const cardTypes = {
             mastercard: {
                 name: "Mastercard",
                 iconClass: "mastercard-icon",
-                btnClass: "mastercard",
                 lengths: [16],
                 cvvLength: 3,
                 prefixes: ["51", "52", "53", "54", "55", "2221", "2720"],
@@ -2149,7 +2186,6 @@
             visa: {
                 name: "Visa",
                 iconClass: "visa-icon",
-                btnClass: "visa",
                 lengths: [13, 16, 19],
                 cvvLength: 3,
                 prefixes: ["4"],
@@ -2159,12 +2195,56 @@
             amex: {
                 name: "American Express",
                 iconClass: "amex-icon",
-                btnClass: "amex",
                 lengths: [15],
                 cvvLength: 4,
                 prefixes: ["34", "37"],
                 note: "American Express: 15 digits, 4-digit CVV on front",
                 color: "#2e77bb"
+            },
+            discover: {
+                name: "Discover",
+                iconClass: "discover-icon",
+                lengths: [16],
+                cvvLength: 3,
+                prefixes: ["6011", "644", "645", "646", "647", "648", "649", "65"],
+                note: "Discover: 16 digits, CVV on back",
+                color: "#ff6000"
+            },
+            diners: {
+                name: "Diners Club",
+                iconClass: "diners-icon",
+                lengths: [14, 16],
+                cvvLength: 3,
+                prefixes: ["300", "301", "302", "303", "304", "305", "36", "38"],
+                note: "Diners Club: 14 or 16 digits, CVV on back",
+                color: "#0079be"
+            },
+            jcb: {
+                name: "JCB",
+                iconClass: "jcb-icon",
+                lengths: [16],
+                cvvLength: 3,
+                prefixes: ["3528", "3529", "353", "354", "355", "356", "357", "358"],
+                note: "JCB: 16 digits, CVV on back",
+                color: "#003c8f"
+            },
+            unionpay: {
+                name: "UnionPay",
+                iconClass: "unionpay-icon",
+                lengths: [16, 17, 18, 19],
+                cvvLength: 3,
+                prefixes: ["62"],
+                note: "UnionPay: 16-19 digits, CVV on back",
+                color: "#ff0000"
+            },
+            other: {
+                name: "Other Card",
+                iconClass: "other-card-icon",
+                lengths: [12, 13, 14, 15, 16, 17, 18, 19],
+                cvvLength: 4,
+                prefixes: [],
+                note: "Other card types: Please enter your card details",
+                color: "#666"
             }
         };
         
@@ -2185,6 +2265,8 @@
         // Card type selection elements
         const cardOptions = document.querySelectorAll('.card-option');
         const paymentCard = document.getElementById('paymentCard');
+        const otherCardContainer = document.getElementById('otherCardContainer');
+        const otherCardNameInput = document.getElementById('otherCardName');
         
         // Function to handle hover over card options
         function handleCardHover(cardType) {
@@ -2193,11 +2275,9 @@
             cardOptions.forEach(opt => {
                 opt.classList.remove('hovered');
                 if (opt.dataset.cardType === cardType) {
-                    opt.classList.add('hovered', cardType);
+                    opt.classList.add('hovered');
                 }
             });
-            
-            updateFormColors(cardType, false);
         }
         
         // Function to handle card selection (click)
@@ -2207,28 +2287,20 @@
             cardOptions.forEach(opt => opt.classList.remove('active'));
             
             const selectedOption = document.querySelector(`[data-card-type="${cardType}"]`);
-            selectedOption.classList.add('active', cardType);
+            selectedOption.classList.add('active');
             
             cardOptions.forEach(opt => opt.classList.remove('hovered'));
             
-            updateFormColors(cardType, true);
-            updateFormForCardType(cardType);
-        }
-        
-        // Update form colors based on card type
-        function updateFormColors(cardType, isPermanent) {
-            paymentCard.className = 'payment-card-container ' + cardType + '-active';
-            
-            const cardInfoNote = document.getElementById('cardInfoNote');
-            cardInfoNote.textContent = cardTypes[cardType].note;
-            cardInfoNote.style.color = cardTypes[cardType].color;
-            
-            if (isPermanent) {
-                const inputs = document.querySelectorAll('.payment-input, .payment-select');
-                inputs.forEach(input => {
-                    input.style.borderColor = cardTypes[cardType].color + '40';
-                });
+            // Show/hide other card input field
+            if (cardType === 'other') {
+                otherCardContainer.style.display = 'block';
+            } else {
+                otherCardContainer.style.display = 'none';
+                // Clear other card name input if switching away from "other"
+                otherCardNameInput.value = '';
             }
+            
+            updateFormForCardType(cardType);
         }
         
         // Update form validation and formatting based on card type
@@ -2239,10 +2311,21 @@
             const maxLength = Math.max(...cardConfig.lengths) + Math.floor(Math.max(...cardConfig.lengths) / 4) - 1;
             cardNumberInput.maxLength = maxLength;
             
+            // Set placeholder based on card type
             if (cardType === 'amex') {
                 cardNumberInput.placeholder = "3782 822463 10005";
             } else if (cardType === 'visa') {
                 cardNumberInput.placeholder = "4111 1111 1111 1111";
+            } else if (cardType === 'discover') {
+                cardNumberInput.placeholder = "6011 0000 0000 0004";
+            } else if (cardType === 'diners') {
+                cardNumberInput.placeholder = "3000 000000 0004";
+            } else if (cardType === 'jcb') {
+                cardNumberInput.placeholder = "3530 1113 3330 0000";
+            } else if (cardType === 'unionpay') {
+                cardNumberInput.placeholder = "6200 0000 0000 0005";
+            } else if (cardType === 'other') {
+                cardNumberInput.placeholder = "Enter your card number";
             } else {
                 cardNumberInput.placeholder = "5500 0000 0000 0004";
             }
@@ -2253,6 +2336,14 @@
             
             document.getElementById('cvvHintText').textContent = 
                 cardConfig.cvvLength === 4 ? "4 digit code (front of card)" : "3 digit code (back of card)";
+            
+            // Update card info note
+            const cardInfoNote = document.getElementById('cardInfoNote');
+            if (cardType === 'other') {
+                cardInfoNote.textContent = "Please enter your card type above";
+            } else {
+                cardInfoNote.textContent = cardConfig.note;
+            }
             
             clearValidationErrors();
         }
@@ -2266,7 +2357,6 @@
             
             option.addEventListener('mouseleave', function() {
                 cardOptions.forEach(opt => opt.classList.remove('hovered'));
-                updateFormColors(selectedCardType, true);
             });
             
             option.addEventListener('click', function() {
@@ -2288,6 +2378,15 @@
             let formattedValue = '';
             
             if (selectedCardType === 'amex') {
+                // Amex format: XXXX XXXXXX XXXXX
+                for (let i = 0; i < value.length; i++) {
+                    if (i === 4 || i === 10) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+            } else if (selectedCardType === 'diners' && value.length === 14) {
+                // Diners Club 14-digit format: XXXX XXXXXX XXXX
                 for (let i = 0; i < value.length; i++) {
                     if (i === 4 || i === 10) {
                         formattedValue += ' ';
@@ -2295,6 +2394,7 @@
                     formattedValue += value[i];
                 }
             } else {
+                // Standard format: XXXX XXXX XXXX XXXX
                 for (let i = 0; i < value.length; i++) {
                     if (i > 0 && i % 4 === 0) {
                         formattedValue += ' ';
@@ -2306,7 +2406,10 @@
             e.target.value = formattedValue;
             
             const digitsOnly = value.replace(/\s+/g, '');
-            validateCardNumberPrefix(digitsOnly);
+            
+            if (selectedCardType !== 'other') {
+                validateCardNumberPrefix(digitsOnly);
+            }
             
             if (cardConfig.lengths.includes(digitsOnly.length)) {
                 hideError('cardNumberError');
@@ -2314,9 +2417,13 @@
             }
         });
         
-        // Validate card number prefix based on selected card type
+        // Validate card number prefix based on selected card type (except for "other")
         function validateCardNumberPrefix(cardNumber) {
             const cardConfig = cardTypes[selectedCardType];
+            
+            // Skip validation for "other" card type
+            if (selectedCardType === 'other') return true;
+            
             let isValidPrefix = false;
             
             for (const prefix of cardConfig.prefixes) {
@@ -2329,9 +2436,11 @@
             if (cardNumber.length > 0 && !isValidPrefix) {
                 showError('cardNumberError', `This doesn't look like a valid ${cardConfig.name} number`);
                 cardNumberInput.parentElement.classList.add('error');
+                return false;
             } else {
                 hideError('cardNumberError');
                 cardNumberInput.parentElement.classList.remove('error');
+                return true;
             }
         }
         
@@ -2367,6 +2476,14 @@
             }
         });
         
+        // Other card name input validation
+        otherCardNameInput.addEventListener('input', function() {
+            if (this.value.trim().length > 0) {
+                hideError('otherCardError');
+                this.parentElement.classList.remove('error');
+            }
+        });
+        
         // Helper functions for error display
         function showError(errorId, message = '') {
             const errorElement = document.getElementById(errorId);
@@ -2377,7 +2494,10 @@
         }
         
         function hideError(errorId) {
-            document.getElementById(errorId).style.display = 'none';
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
         }
         
         function clearValidationErrors() {
@@ -2461,12 +2581,22 @@
             const expiryYear = expiryYearSelect.value;
             const cvv = cvvInput.value;
             
+            // Validate other card name if "other" is selected
+            if (selectedCardType === 'other') {
+                const otherCardName = otherCardNameInput.value.trim();
+                if (!otherCardName) {
+                    showError('otherCardError');
+                    otherCardNameInput.parentElement.classList.add('error');
+                    isValid = false;
+                }
+            }
+            
             // Card number validation
             if (!cardConfig.lengths.includes(cardNumber.length)) {
-                showError('cardNumberError', `Please enter a valid ${cardConfig.name} number (${cardConfig.lengths.join(' or ')} digits)`);
+                showError('cardNumberError', `Please enter a valid card number (${cardConfig.lengths.join(' or ')} digits)`);
                 cardNumberInput.parentElement.classList.add('error');
                 isValid = false;
-            } else {
+            } else if (selectedCardType !== 'other') {
                 let isValidPrefix = false;
                 for (const prefix of cardConfig.prefixes) {
                     if (cardNumber.startsWith(prefix)) {
